@@ -1,0 +1,10 @@
+[INFO] 2023-10-01 10:00:00 Application started successfully.
+[WARNING] 2023-10-01 10:05:00 Low memory warning.
+[ERROR] 2023-10-01 10:10:00 Failed to connect to database.
+[INFO] 2023-10-01 10:15:00 User login attempt.
+[WARNING] 2023-10-01 10:20:00 Disk space running low.
+[ERROR] 2023-10-01 10:25:00 Network timeout error.
+[INFO] 2023-10-01 10:30:00 Data processed successfully.
+[WARNING] 2023-10-01 10:35:00 High CPU usage detected.
+[ERROR] 2023-10-01 10:40:00 Authentication failed.
+[INFO] 2023-10-01 10:45:00 Backup completed.

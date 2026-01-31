@@ -1,0 +1,2 @@
+# Dependencias para LogSentinel
+# Este proyecto usa solo librerías estándar de Python, por lo que no se requieren dependencias externas.

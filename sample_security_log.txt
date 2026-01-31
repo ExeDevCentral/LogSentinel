@@ -1,0 +1,14 @@
+[INFO] 2023-10-01 08:00:00 Sistema iniciado correctamente
+[WARNING] 2023-10-01 08:15:00 Usuario admin intentó login con credenciales inválidas
+[ERROR] 2023-10-01 08:16:00 Login failed para usuario: hacker123 desde IP 192.168.1.100
+[WARNING] 2023-10-01 08:17:00 Autenticación fallida - usuario desconocido
+[ERROR] 2023-10-01 08:18:00 Authentication failed - invalid credentials
+[INFO] 2023-10-01 08:20:00 Usuario admin login exitoso
+[WARNING] 2023-10-01 08:25:00 Acceso no autorizado detectado desde IP 10.0.0.50
+[ERROR] 2023-10-01 08:26:00 Suspicious access attempt from unknown IP
+[WARNING] 2023-10-01 08:27:00 Intento de intrusión bloqueado
+[ERROR] 2023-10-01 08:28:00 IP bloqueada: 203.0.113.1 por múltiples intentos fallidos
+[INFO] 2023-10-01 08:30:00 Backup completado
+[WARNING] 2023-10-01 08:35:00 Credenciales inválidas para usuario: testuser
+[ERROR] 2023-10-01 08:36:00 Login failed - account locked
+[INFO] 2023-10-01 08:40:00 Sesión cerrada correctamente
