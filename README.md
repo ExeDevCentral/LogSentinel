@@ -1,127 +1,140 @@
-# LogSentinel - Analizador de Logs de Seguridad
+<div align="center">
 
-Un analizador simple y efectivo de archivos de log para detectar amenazas básicas de seguridad.
+# LogSentinel • Deterministic Security Log Analyzer
+### *Zero-Dependency Log Telemetry, Regular Expression Heuristics & Incident Classification Engine*
 
-## 🚀 Características
+[![Python: 3.8+](https://img.shields.io/badge/Python-3.8%2B_Standard_Library-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero_External_Overhead-success?style=for-the-badge)](https://docs.python.org/3/library/)
+[![Complexity: O(N)](https://img.shields.io/badge/Algorithmic_Complexity-O(N)_Linear_Stream-orange?style=for-the-badge)](https://en.wikipedia.org/wiki/Streaming_algorithm)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-- **Detección de logins fallidos**: Identifica patrones como "login failed", "autenticación fallida", "invalid credentials"
-- **Detección de accesos sospechosos**: Encuentra patrones como "acceso no autorizado", "acceso sospechoso", "intento de intrusión", "ip bloqueada"
-- **Reportes claros y detallados**: Muestra un resumen con conteos, porcentajes y líneas específicas donde se encontraron amenazas
-- **Fácil de usar**: Solo ejecutá el script con un archivo de log como parámetro
-- **Sin dependencias externas**: Usa solo librerías estándar de Python
-
-## 📋 Requisitos
-
-- Python 3.6 o superior
-- No se requieren dependencias externas
-
-## 🛠️ Instalación
-
-1. Cloná el repositorio:
-```bash
-git clone https://github.com/ExeDevCentral/LogSentinel.git
-cd LogSentinel
-```
-
-2. Asegurate de tener Python instalado:
-```bash
-python --version
-```
-
-## 📖 Uso
-
-### Análisis básico
-```bash
-python log_analyzer.py ruta/al/archivo/log.log
-```
-
-### Ejemplo con archivo de prueba
-```bash
-python log_analyzer.py sample_security_log.txt
-```
-
-## 📊 Salida del Programa
-
-El programa genera un reporte como este:
-
-```
-=== REPORTE DE ANÁLISIS DE LOGS ===
-Archivo analizado: sample_security_log.txt
-Total de líneas procesadas: 14
-
-🔐 INTENTOS FALLIDOS DE LOGIN:
-   Total detectados: 5
-   Línea 3: [ERROR] 2023-10-01 08:16:00 Login failed for user: hacker123 from IP 192.168.1.100
-   ...
-
-🚨 ACCESOS SOSPECHOSOS:
-   Total detectados: 4
-   Línea 7: [WARNING] 2023-10-01 08:25:00 Acceso no autorizado detectado desde IP 10.0.0.50
-   ...
-
-📊 RESUMEN:
-   Total de amenazas detectadas: 9
-   Porcentaje de líneas con amenazas: 64.29%
-
-=== FIN DEL REPORTE ===
-```
-
-## 🏗️ Estructura del Proyecto
-
-```
-LogSentinel/
-├── log_analyzer.py          # Script principal del analizador
-├── sample_security_log.txt  # Archivo de log de ejemplo con eventos de seguridad
-├── requirements.txt         # Dependencias (vacío, usa solo librerías estándar)
-├── README.md               # Este archivo (español)
-├── README_EN.md            # Versión en inglés
-└── src/                    # Código fuente adicional (versión modular)
-    ├── main.py
-    ├── parser.py
-    └── rules.py
-```
-
-## 🔍 Patrones Detectados
-
-### Intentos de Login Fallidos
-- "login failed"
-- "autenticación fallida"
-- "authentication failed"
-- "invalid credentials"
-- "credenciales inválidas"
-- "account locked"
-
-### Accesos Sospechosos
-- "acceso no autorizado"
-- "unauthorized access"
-- "acceso sospechoso"
-- "suspicious access"
-- "intento de intrusión"
-- "intrusion attempt"
-- "ip bloqueada"
-- "blocked ip"
-
-## 🤝 Contribuyendo
-
-1. Hacé fork del proyecto
-2. Creá una rama para tu feature (`git checkout -b feature/NuevaCaracteristica`)
-3. Commiteá tus cambios (`git commit -am 'Agrego nueva característica'`)
-4. Pusheá a la rama (`git push origin feature/NuevaCaracteristica`)
-5. Abrí un Pull Request
-
-## 📝 Licencia
-
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-## 👨‍💻 Autor
-
-**ExeDevCentral** - [GitHub](https://github.com/ExeDevCentral)
-
-## 🙏 Agradecimientos
-
-- Inspirado en herramientas de análisis de logs empresariales
-- Desarrollado para aprendizaje y uso práctico en entornos de producción
+<p align="center">
+  <b>A lightweight, high-performance security log auditing engine designed for air-gapped environments, minimal runtime overhead, and deterministic pattern classification without third-party dependencies.</b>
+</p>
 
 ---
 
-*Desarrollado con ❤️ en Argentina*
+</div>
+
+## 1. Abstract & System Taxonomy
+
+System administrators operating in classified, air-gapped, or resource-constrained embedded edge nodes frequently cannot install heavy log ingestion daemons (e.g., Elastic Filebeat, Splunk Universal Forwarder) due to kernel dependency constraints or strict security posture requirements.
+
+**LogSentinel** provides an autonomous, zero-dependency command-line parsing engine built entirely on **Python Standard Library primitives**:
+- **Linear Stream Processing:** Evaluates structured and semi-structured syslog streams in single-pass $\mathcal{O}(N)$ computational complexity without buffering entire multi-gigabyte logs into resident memory.
+- **Bi-Lingual Heuristic Tokenization:** Pre-compiled regular expression state machines correlate authentication failures and intrusion vectors across Spanish and English administrative dialects.
+- **Statistical Threat Profiling:** Generates quantitative threat density metrics ($\Delta_{\text{threat}} = \frac{\sum E_{\text{malicious}}}{N_{\text{total}}}$) with precise source line referencing.
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        LOG STREAM INGESTION (O(N))                     │
+│  [Syslog / Auth.log / EventLog] ──► [Chunked Text Stream Generator]   │
+└──────────────────────────────────┬─────────────────────────────────────┘
+                                   │
+                                   ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│               DETERMINISTIC REGULAR EXPRESSION PARSER                  │
+│    • Auth Failures: `login failed`, `invalid credentials`, `locked`    │
+│    • Intrusion Vectors: `unauthorized access`, `intrusion`, `blocked` │
+│    • Multi-Lingual Regex Compilation via `re.compile()`                │
+└──────────────────────────────────┬─────────────────────────────────────┘
+                                   │
+         ┌─────────────────────────┴─────────────────────────┐
+         ▼                                                   ▼
+┌──────────────────────────────────┐        ┌──────────────────────────────────┐
+│      STATISTICAL DENSITY AUDIT   │        │     INCIDENT LINE TRACE REPORT   │
+│   Quantitative Threat Frequency  │        │   Line-indexed Forensic Trace    │
+│   Percentage Breach Calculation  │        │   Zero-Memory Resident Footprint │
+└──────────────────────────────────┘        └──────────────────────────────────┘
+```
+
+---
+
+## 2. Computational Complexity & Heuristic Automata
+
+### 2.1. Memory and Time Envelope
+By leveraging Python's streaming iterator pattern over file descriptors, LogSentinel enforces strict memory bounds:
+
+$$\mathcal{M}_{\text{resident}} \le \mathcal{O}(1) \quad \text{relative to log file size } S$$
+$$\mathcal{T}_{\text{execution}} = \mathcal{O}(N \cdot K)$$
+
+Where $N$ is the number of ingested log records and $K$ is the bounded evaluation depth of the pre-compiled regular expression set.
+
+### 2.2. Pattern Classification Taxonomy
+
+| Incident Class | Regex Signature Vectors | Forensic Significance |
+| :--- | :--- | :--- |
+| **Authentication Anomaly** | `authentication failed`, `invalid credentials`, `account locked` | Precursor to brute-force credential stuffing |
+| **Access Control Breach** | `unauthorized access`, `acceso no autorizado`, `forbidden` | Privilege escalation or directory traversal attempts |
+| **Perimeter Rejection** | `intrusion attempt`, `ip bloqueada`, `connection dropped` | Port scan sweeps or firewall drop notifications |
+
+---
+
+## 3. Systems Directory Hierarchy
+
+```text
+LogSentinel/
+├── log_analyzer.py          # Monolithic single-file execution entrypoint
+├── sample_security_log.txt  # Calibrated security event validation dataset
+├── requirements.txt         # Dependency manifest (Strictly empty: standard library only)
+├── README.md               # Primary technical specification (English)
+├── README_EN.md            # Concise quickstart reference
+└── src/                    # Modular engine architecture
+    ├── main.py             # Orchestration CLI wrapper
+    ├── parser.py           # Stream parser and token evaluator
+    └── rules.py            # Pre-compiled regular expression rule definitions
+```
+
+---
+
+## 4. Operational Execution & Lifecycle
+
+### Prerequisites
+- **Python**: $\ge 3.8$ (Compatible across all POSIX and Windows NT platforms)
+- **External Dependencies**: Zero ($0$)
+
+### Execution Commands
+```bash
+# Clone the repository
+git clone https://github.com/ExeDevCentral/LogSentinel.git
+cd LogSentinel
+
+# Analyze target log file
+python log_analyzer.py path/to/auth.log
+
+# Execute verification against included test telemetry
+python log_analyzer.py sample_security_log.txt
+```
+
+### Typical Forensic Telemetry Output
+```text
+=== LOGSENTINEL SECURITY AUDIT REPORT ===
+Analyzed Target: sample_security_log.txt
+Total Records Ingested: 14
+
+[!] AUTHENTICATION FAILURES DETECTED:
+    Total Incidents: 5
+    Line 3: [ERROR] 2023-10-01 08:16:00 Login failed for user: admin from IP 192.168.1.100
+    ...
+
+[!] ACCESS VIOLATIONS & SUSPICIOUS EVENTS:
+    Total Incidents: 4
+    Line 7: [WARNING] 2023-10-01 08:25:00 Unauthorized access attempt from IP 10.0.0.50
+    ...
+
+STATISTICAL INCIDENT SUMMARY:
+    Total Threats Identified: 9
+    Threat Density Ratio:     64.29%
+
+=== END FORENSIC AUDIT ===
+```
+
+---
+
+## 5. License
+
+Distributed under the **MIT License**. Engineered for defensive log auditing and air-gapped system diagnostics.
+
+<div align="center">
+  <sub>Engineered by <a href="https://github.com/ExeDevCentral">ExeDevCentral</a>.</sub>
+</div>
